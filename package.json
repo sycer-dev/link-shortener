@@ -1,6 +1,6 @@
 {
     "name": "shortener",
-    "version": "0.0.7",
+    "version": "0.0.1",
     "description": "an easy link shortener for Sycer Development",
     "private": true,    
 	"license": "GPL-3.0",
