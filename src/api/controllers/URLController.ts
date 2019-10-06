@@ -50,9 +50,11 @@ export class URLController implements Controller {
 
 	private async remove(req: Request, res: Response): Promise<void> {
 		if (req.query.token !== process.env.TOKEN) return res.send(401, 'Unauthorized.');
+		const doc = this.server.settings.link.find(l => l.short === req.params.short);
+		if (!doc) return res.send(404, { code: 404, message: `${req.params.short} doesn't exists.` });
 		try {
-			await this.server!.settings!.remove('link', { short: req.params.short });
-			return res.send(200);
+			await this.server!.settings!.remove('link', { _id: doc._id });
+			return res.send(200, doc);
 		} catch {
 			return res.send(500);
 		}
