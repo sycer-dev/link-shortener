@@ -11,6 +11,5 @@ export class PingController implements Controller {
 
 	public initialize(): void {
 		this.server!.get('/ping', (_: Request, res: Response) => res.send(200, { code: 200, message: 'Pong!' }));
-		this.server.get('/', (_: Request, res: Response) => res.redirect('https://sycer.dev/', () => this.server.logger.verbose('[REDIRECT] / to home page')))
 	}
 }
