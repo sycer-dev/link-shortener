@@ -10,11 +10,18 @@ export class URLController implements Controller {
 	}
 
 	public initialize(): void {
+		this.server.get('/', this.sendAll.bind(this));
 		this.server.get('/:code', this.redirect.bind(this));
 		this.server.get('/url/:code', this.show.bind(this));
 		this.server!.post('/url/:short/:long', this.create.bind(this))
 		this.server!.put('/url/:short', this.update.bind(this))
 		this.server!.del('/url/:short', this.remove.bind(this))
+	}
+
+	private sendAll(req: Request, res: Response): void {
+		if (req.query.token !== process.env.TOKEN) return res.send(401, { code: 401, message: 'Invalid token provided.' });
+		const shorts = this.server.settings!.link.map(e => e.short);
+		return res.send(200, { shorts });
 	}
 
 	private redirect(req: Request, res: Response): void {
