@@ -2,8 +2,8 @@
     "name": "shortener",
     "version": "0.0.1",
     "description": "an easy link shortener for Sycer Development",
-    "private": true,    
-	"license": "GPL-3.0",
+    "private": true,
+    "license": "GPL-3.0",
     "author": {
         "name": "Carter Himmel",
         "email": "fyko@sycer.dev"

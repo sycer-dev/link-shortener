@@ -50,8 +50,10 @@ export class URLController implements Controller {
 	private async update(req: Request, res: Response): Promise<void> {
 		if (req.query.token !== process.env.TOKEN) return res.send(401, { code: 401, message: 'Unauthorized.' });
 		const existing = this.server.settings!.link.find(u => u.short === req.params.short);
+		const long = req.body.long;
+		if (!long) return res.send(404, { code: 404, message: `New longURL not provided in req.body.` });
 		if (!existing) return res.send(404, { code: 404, message: `${req.params.short} doesn't exists.` });
-		const doc = await this.server!.settings!.set('link', { _id: existing._id }, { long: req.params.long, short: req.params.short });
+		const doc = await this.server!.settings!.set('link', { _id: existing._id }, { long, short: req.params.short });
 		return res.send(200, doc);
 	}
 
